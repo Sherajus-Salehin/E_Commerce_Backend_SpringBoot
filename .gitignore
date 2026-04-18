@@ -1,3 +1,4 @@
+application.properties
 HELP.md
 target/
 .mvn/wrapper/maven-wrapper.jar
@@ -12,7 +13,6 @@ target/
 .settings
 .springBeans
 .sts4-cache
-
 ### IntelliJ IDEA ###
 .idea
 *.iws
