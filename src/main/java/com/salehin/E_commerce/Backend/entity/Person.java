@@ -1,4 +1,4 @@
-package entity;
+package com.salehin.E_commerce.Backend.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
