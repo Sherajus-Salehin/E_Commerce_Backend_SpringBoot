@@ -1,13 +1,14 @@
 package com.salehin.E_commerce.Backend.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "people")
-@Data
-@RequiredArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
