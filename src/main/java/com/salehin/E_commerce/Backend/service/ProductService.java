@@ -8,10 +8,8 @@ import com.salehin.E_commerce.Backend.entity.Product;
 import com.salehin.E_commerce.Backend.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.awt.print.Pageable;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

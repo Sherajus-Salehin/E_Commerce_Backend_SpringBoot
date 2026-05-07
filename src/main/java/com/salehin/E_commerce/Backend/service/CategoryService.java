@@ -8,9 +8,9 @@ import com.salehin.E_commerce.Backend.entity.Category;
 import com.salehin.E_commerce.Backend.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,7 +52,7 @@ public class CategoryService {
         return dto;
     }
 
-    Page<CategoryResponseDto> search(String key, Pageable pageable){
+    public Page<CategoryResponseDto> search(String key, Pageable pageable){
         Page<Category> categories=categoryRepository.findByNameContaining(key,pageable);
         return categories.map(this::mapToDto);
     }
