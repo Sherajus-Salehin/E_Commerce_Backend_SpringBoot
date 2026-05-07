@@ -17,6 +17,20 @@ import java.util.List;
 public class CategoryService {
     private final CategoryRepository categoryRepository;
 
+    public String addCategory(Category category) {
+        categoryRepository.save(category);
+        return "Added successfully";
+    }
+    public String updateCategory(Category category) {
+        Category u=getCategory(category.getId());
+
+        categoryRepository.save(category);
+        return "Updated successfully";
+    }
+    public Category getCategory(Long id) {
+        return categoryRepository.findById(id);
+    }
+
 
     public CategoryResponseDto mapToDto(Category category) {
         CategoryResponseDto dto=new CategoryResponseDto();

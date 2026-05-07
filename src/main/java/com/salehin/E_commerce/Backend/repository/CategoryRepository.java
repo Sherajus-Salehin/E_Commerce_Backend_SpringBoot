@@ -8,4 +8,6 @@ import java.awt.print.Pageable;
 
 public interface CategoryRepository extends CrudRepository<Category,Integer> {
     Page<Category> findByNameContaining(String name, Pageable pageable);
+
+    Category findById(Long id);
 }
