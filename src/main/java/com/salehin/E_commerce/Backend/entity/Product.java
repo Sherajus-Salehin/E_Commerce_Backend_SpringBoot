@@ -16,8 +16,7 @@ public class Product {
     Long id;
     String name;
     String sku;
-    Double minPrice;
-    Double maxPrice;
+    Double Price;
     Boolean isActive;
     @ManyToMany
     @JoinTable(

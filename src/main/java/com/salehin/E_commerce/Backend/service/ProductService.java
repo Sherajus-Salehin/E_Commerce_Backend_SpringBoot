@@ -28,8 +28,7 @@ public class ProductService {
         dto.setId(product.getId());
         dto.setName(product.getName());
         dto.setSku(product.getSku());
-        dto.setMinPrice(product.getMinPrice());
-        dto.setMaxPrice(product.getMaxPrice());
+        dto.setPrice(product.getPrice());
         List<CategoryDto> categories= product.getCategories()
                 .stream()
                 .map(category -> new CategoryDto(
@@ -42,11 +41,21 @@ public class ProductService {
     return dto;
     }
 
-    public Page<ProductResponseDTO> search(String key, Pageable pageable){
-        Page<Product> products=productRepository.findByNameContainingIgnoreCaseAndIsActiveTrue(key,pageable);
-        return products.map(this::mapToDTO);
+//    public Page<ProductResponseDTO> search(String key, Pageable pageable){
+//        Page<Product> products=productRepository.findByNameContainingIgnoreCaseAndIsActiveTrue(key,pageable);
+//        return products.map(this::mapToDTO);
+//    }
+//    public Page<ProductResponseDTO> search(Pageable pageable){
+//        Page<Product> products=productRepository.findAll(pageable);
+//        return products.map(this::mapToDTO);
+//    }
+
+    public Page<ProductResponseDTO> search(String name, String sku,Long categoryId,Integer minPrice,Integer maxPrice, Pageable pageable){
+        return productRepository.searchProducts(name,sku,categoryId,minPrice,maxPrice,pageable).map(this::mapToDTO);
     }
 
+
+    //for personal testing
     public List<ProductResponseDTO> getAll() {
         List<Product> products=productRepository.findAll();
         return products.stream().map(this::mapToDTO).toList();
@@ -56,8 +65,7 @@ public class ProductService {
         Product product = new Product();
         product.setName(dto.getName());
         product.setSku(dto.getSku());
-        product.setMinPrice(dto.getMinPrice());
-        product.setMaxPrice(dto.getMaxPrice());
+        product.setPrice(dto.getPrice());
         Set<Category> categories=new HashSet<>(categoryRepository.findAllById(dto.getCategoryIds()));
         product.setCategories(categories);
         return mapToDTO(productRepository.save(product));

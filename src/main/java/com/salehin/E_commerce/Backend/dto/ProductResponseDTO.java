@@ -14,7 +14,6 @@ public class ProductResponseDTO {
     Long id;
     String name;
     String sku;
-    Double minPrice;
-    Double maxPrice;
+    Double price;
     List<CategoryDto> categories;
 }

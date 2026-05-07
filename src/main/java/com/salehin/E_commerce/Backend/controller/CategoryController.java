@@ -14,27 +14,28 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/api/v1/categories")
 public class CategoryController {
 
     @Autowired
     CategoryService categoryService;
 
     @GetMapping("/search")
-    //(required = false)
-    public Page<CategoryResponseDto> search(@RequestParam String key, @RequestParam int page, @RequestParam int size){
+    public Page<CategoryResponseDto> search(@RequestParam(required = false) String name,
+                                            @RequestParam(required = false) String code,
+                                            @RequestParam int page, @RequestParam int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return categoryService.search(key,pageable);
+        return categoryService.search(name,code,pageable);
     }
 
     @GetMapping
-    public List<CategoryResponseDto> categories(){
+    public List<CategoryResponseDto> categories() {
         return categoryService.getAll();
     }
 
 
     @PostMapping("/new")
-    public CategoryResponseDto create(@RequestBody CreateCategoryDto dto){
+    public CategoryResponseDto create(@RequestBody CreateCategoryDto dto) {
         return categoryService.create(dto);
     }
 }

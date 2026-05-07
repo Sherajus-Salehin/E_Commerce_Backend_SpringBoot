@@ -52,8 +52,9 @@ public class CategoryService {
         return dto;
     }
 
-    public Page<CategoryResponseDto> search(String key, Pageable pageable){
-        Page<Category> categories=categoryRepository.findByNameContaining(key,pageable);
+    public Page<CategoryResponseDto> search(String name,String code, Pageable pageable){
+        //Page<Category> categories=categoryRepository.findByNameContainingIgnoreCaseAndIsActiveTrue(key,pageable);
+        Page<Category> categories=categoryRepository.searchCategory(name,code,pageable);
         return categories.map(this::mapToDto);
     }
 

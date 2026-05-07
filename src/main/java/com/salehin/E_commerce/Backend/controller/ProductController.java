@@ -14,17 +14,21 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/api/v1/products")
 public class ProductController {
 
     @Autowired
     ProductService productService;
 
     @GetMapping("/search")
-    //(required = false)
-    public Page<ProductResponseDTO> search(@RequestParam String key, @RequestParam int page, @RequestParam int size){
+    public Page<ProductResponseDTO> search(@RequestParam (required = false)String name,
+                                           @RequestParam (required = false) String sku,
+                                           @RequestParam (required = false) Long categoryId,
+                                           @RequestParam (required = false) Integer minPrice,
+                                           @RequestParam (required = false)Integer maxPrice,
+                                           @RequestParam (required = false)int page, @RequestParam int size){
         Pageable pageable = PageRequest.of(page, size);
-        return productService.search(key,pageable);
+        return productService.search(name,sku,categoryId,minPrice,maxPrice,pageable);
     }
 
     @PostMapping("/isActive")

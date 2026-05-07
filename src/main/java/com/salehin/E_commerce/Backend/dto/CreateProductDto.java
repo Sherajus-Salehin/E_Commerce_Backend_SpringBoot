@@ -14,7 +14,6 @@ import java.util.Set;
 public class CreateProductDto {
     String  name;
     String  sku;
-    Double  minPrice;
-    Double  maxPrice;
+    Double  price;
     Set<Long> categoryIds;
 }
