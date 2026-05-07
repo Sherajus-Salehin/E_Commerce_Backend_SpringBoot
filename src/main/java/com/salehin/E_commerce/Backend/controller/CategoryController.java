@@ -1,0 +1,30 @@
+package com.salehin.E_commerce.Backend.controller;
+
+import com.salehin.E_commerce.Backend.dto.CategoryResponseDto;
+import com.salehin.E_commerce.Backend.dto.CreateCategoryDto;
+import com.salehin.E_commerce.Backend.service.CategoryService;
+import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/category")
+public class CategoryController {
+
+    @Autowired
+    CategoryService categoryService;
+
+    @GetMapping
+    public List<CategoryResponseDto> categories(){
+        return categoryService.getAll();
+    }
+
+
+    @PostMapping("/new")
+    public CategoryResponseDto create(@RequestBody CreateCategoryDto dto){
+        return categoryService.create(dto);
+    }
+}

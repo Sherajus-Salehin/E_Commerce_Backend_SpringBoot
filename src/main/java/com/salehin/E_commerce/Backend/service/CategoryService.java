@@ -2,6 +2,7 @@ package com.salehin.E_commerce.Backend.service;
 
 import com.salehin.E_commerce.Backend.dto.CategoryDto;
 import com.salehin.E_commerce.Backend.dto.CategoryResponseDto;
+import com.salehin.E_commerce.Backend.dto.CreateCategoryDto;
 import com.salehin.E_commerce.Backend.dto.ProductsDto;
 import com.salehin.E_commerce.Backend.entity.Category;
 import com.salehin.E_commerce.Backend.repository.CategoryRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.awt.print.Pageable;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -53,5 +55,19 @@ public class CategoryService {
     Page<CategoryResponseDto> search(String key, Pageable pageable){
         Page<Category> categories=categoryRepository.findByNameContaining(key,pageable);
         return categories.map(this::mapToDto);
+    }
+
+    public CategoryResponseDto create(CreateCategoryDto dto) {
+        Category category=new Category();
+        category.setName(dto.getName());
+        category.setCode(dto.getCode());
+        category.setIsActive(true);
+        return mapToDto(categoryRepository.save(category));
+    }
+
+    //for personal testing, no pageable
+    public List<CategoryResponseDto> getAll() {
+        List<Category> allCategories= categoryRepository.findAll();
+        return allCategories.stream().map(this::mapToDto).toList();
     }
 }
