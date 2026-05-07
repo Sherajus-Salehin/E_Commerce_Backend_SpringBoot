@@ -27,6 +27,12 @@ public class ProductController {
         return productService.search(key,pageable);
     }
 
+    @PostMapping("/isActive")
+    public String isActive(@RequestParam Integer id,@RequestParam Boolean isActive){
+        productService.isActive(id,isActive);
+        return "done.";
+    }
+
     @GetMapping
     public List<ProductResponseDTO> categories(){
         return productService.getAll();

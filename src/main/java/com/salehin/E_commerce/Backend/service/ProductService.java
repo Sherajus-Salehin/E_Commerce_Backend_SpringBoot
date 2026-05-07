@@ -43,7 +43,7 @@ public class ProductService {
     }
 
     public Page<ProductResponseDTO> search(String key, Pageable pageable){
-        Page<Product> products=productRepository.findByNameContaining(key,pageable);
+        Page<Product> products=productRepository.findByNameContainingIgnoreCaseAndIsActiveTrue(key,pageable);
         return products.map(this::mapToDTO);
     }
 
@@ -61,5 +61,11 @@ public class ProductService {
         Set<Category> categories=new HashSet<>(categoryRepository.findAllById(dto.getCategoryIds()));
         product.setCategories(categories);
         return mapToDTO(productRepository.save(product));
+    }
+
+    public void isActive(Integer id, Boolean isActive) {
+        Product p= productRepository.findById(id).orElseThrow(()-> new RuntimeException("product not found"));
+        p.setIsActive(isActive);
+        productRepository.save(p);
     }
 }

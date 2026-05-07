@@ -10,10 +10,10 @@ import java.util.Set;
 
 
 //deal with long and integer later
-public interface CategoryRepository extends JpaRepository<Category,Integer> {
+public interface CategoryRepository extends JpaRepository<Category,Long> {
     Page<Category> findByNameContaining(String name, Pageable pageable);
 
-    Category findById(Long id);
-
-    Collection<? extends Category> findAllById(Set<Long> categoryIds);
+//    Category findById(Long id);
+//
+//    Collection<? extends Category> findAllById(Set<Long> categoryIds);
 }

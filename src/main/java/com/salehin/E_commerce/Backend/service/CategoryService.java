@@ -30,7 +30,7 @@ public class CategoryService {
         return "Updated successfully";
     }
     public Category getCategory(Long id) {
-        return categoryRepository.findById(id);
+        return categoryRepository.findById(id).orElseThrow(()-> new RuntimeException("Category not found"));
     }
 
 
