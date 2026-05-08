@@ -50,7 +50,7 @@ public class ProductService {
 //        return products.map(this::mapToDTO);
 //    }
 
-    public Page<ProductResponseDTO> search(String name, String sku,Long categoryId,Integer minPrice,Integer maxPrice, Pageable pageable){
+    public Page<ProductResponseDTO> search(String name, String sku,Long categoryId,Double minPrice,Double maxPrice, Pageable pageable){
         return productRepository.searchProducts(name,sku,categoryId,minPrice,maxPrice,pageable).map(this::mapToDTO);
     }
 
@@ -71,9 +71,15 @@ public class ProductService {
         return mapToDTO(productRepository.save(product));
     }
 
-    public void isActive(Integer id, Boolean isActive) {
+    public void isActive(Long id, Boolean isActive) {
         Product p= productRepository.findById(id).orElseThrow(()-> new RuntimeException("product not found"));
         p.setIsActive(isActive);
+        productRepository.save(p);
+    }
+
+    public void softDelete(Long id) {
+        Product p=productRepository.findById(id).orElseThrow(()-> new RuntimeException("product not found"));
+        p.setIsActive(false);
         productRepository.save(p);
     }
 }

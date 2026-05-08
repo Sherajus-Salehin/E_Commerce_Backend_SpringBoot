@@ -25,7 +25,6 @@ public class CategoryService {
     }
     public String updateCategory(Category category) {
         Category u=getCategory(category.getId());
-
         categoryRepository.save(category);
         return "Updated successfully";
     }
@@ -70,5 +69,11 @@ public class CategoryService {
     public List<CategoryResponseDto> getAll() {
         List<Category> allCategories= categoryRepository.findAll();
         return allCategories.stream().map(this::mapToDto).toList();
+    }
+
+    public void softDelete(Long id) {
+        Category c= getCategory(id);
+        c.setIsActive(false);
+        categoryRepository.save(c);
     }
 }

@@ -28,6 +28,12 @@ public class CategoryController {
         return categoryService.search(name,code,pageable);
     }
 
+    @DeleteMapping("/{id}")
+    public String softDelete(@PathVariable Long id){
+        categoryService.softDelete(id);
+        return "done.";
+    }
+
     @GetMapping
     public List<CategoryResponseDto> categories() {
         return categoryService.getAll();

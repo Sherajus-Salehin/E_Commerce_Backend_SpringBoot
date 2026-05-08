@@ -17,7 +17,7 @@ public interface CategoryRepository extends JpaRepository<Category,Long> {
 
     @Query("""
             SELECT c FROM Category c
-            WHERE
+            WHERE c.isActive =TRUE AND
             (:name IS NULL OR LOWER(c.name) LIKE LOWER(CONCAT('%', :name, '%'))) AND
             (:code IS NULL OR LOWER(c.code) LIKE LOWER(CONCAT('%', :code, '%')))
             """)

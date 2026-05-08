@@ -24,15 +24,22 @@ public class ProductController {
     public Page<ProductResponseDTO> search(@RequestParam (required = false)String name,
                                            @RequestParam (required = false) String sku,
                                            @RequestParam (required = false) Long categoryId,
-                                           @RequestParam (required = false) Integer minPrice,
-                                           @RequestParam (required = false)Integer maxPrice,
+                                           @RequestParam (required = false) Double minPrice,
+                                           @RequestParam (required = false)Double maxPrice,
                                            @RequestParam (required = false)int page, @RequestParam int size){
         Pageable pageable = PageRequest.of(page, size);
         return productService.search(name,sku,categoryId,minPrice,maxPrice,pageable);
     }
 
+
+    @DeleteMapping("/{id}")
+    public String softDelete(@PathVariable Long id){
+        productService.softDelete(id);
+        return "done.";
+    }
+
     @PostMapping("/isActive")
-    public String isActive(@RequestParam Integer id,@RequestParam Boolean isActive){
+    public String isActive(@RequestParam Long id,@RequestParam Boolean isActive){
         productService.isActive(id,isActive);
         return "done.";
     }
